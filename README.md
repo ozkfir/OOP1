@@ -32,34 +32,38 @@ observer pattern is a software design pattern in which an object, named the subj
 maintains a list of its members, called observers, and notifies them automatically of any state changes,
 by calling the update method.
 
-The algorithm works so that there is one will follow that has many "followers".
-The "followers" will receive a notification when something changes in the one will follow!!! and they will be able to
-update the information they have with the latest information
-The algorithm will be implemented so that the follower contains a list of all the "followers" who receive the updates,
-and he is the one who can change the list.
+//The algorithm works so that there is one will follow that has many "followers".
+//The "followers" will receive a notification when something changes in the one will follow!!! and they will be able to
+//update the information they have with the latest information
+//The algorithm will be implemented so that the follower contains a list of all the "followers" who receive the updates,
+//and he is the one who can change the list.
+
 ## UML
 ![Calculator - screenshot](EX1_Diagram.png)
 ## [GroupAdmin](src/main/java/GroupAdmin.java) (observables)
 
 GroupAdmin implement Sender
+
 GroupAdmin contain
 UndoableStringBuilder
 LinkedList<Member>
 
-the LinkedList<Member> contains all the Members who follow the GroupAdmin
+The LinkedList<Member> contains all the Members who "follow" the GroupAdmin
 
-the UndoableStringBuilder is what the ConcreteMembers follow and want to be ---- when it changes
+The UndoableStringBuilder is what the ConcreteMembers interested in him, and want to be notify when it changes
+
+##central methods
 
 ### register
-
-ConcreteMember can follow a GroupAdmin several times,and when he is -----, he will be ----- for each of the
+The purpose of the register is to add a member to our list of "followers" so that he will receive updates
+ConcreteMember can follow a GroupAdmin several times,and when he is change, he will be notify for each of the
 registrations
 
 ### unregister
 
-when you're unregistered you don't get anymore --- and your UndoableStringBuilder won't change either
+When you're unregistered you don't get anymore notification and your UndoableStringBuilder won't change either
 
-if the ConcreteMember a several times to disconnect it completely, you need disconnect as many times as you connected.
+If the ConcreteMember a several times to disconnect it completely, you need disconnect as many times as you connected.
 If we disconnected completely inside to unregister we will create a new UndoableStringBuilder that will contain the
 content of the GroupAdmin.UndoableStringBuilder
 And the ConcreteMember.UndoableStringBuilder will point to the new UndoableStringBuilder.so f
@@ -68,8 +72,8 @@ And the ConcreteMember.UndoableStringBuilder will point to the new UndoableStrin
 
 We inform all members that there is a new update, and they are updated
 
-we decided that when ConcreteMember unregister, so he won't be able to undo()_____ he will be disconnected from the
-stack
+//We decided that when ConcreteMember unregister, so he won't be able to undo()_____ he will be disconnected from the
+//stack
 
 if you register in the first time your UndoableStringBuilder will not be !!! connected to the
 GroupAdmin.UndoableStringBuilder until a notify is called
@@ -85,12 +89,26 @@ UndoableStringBuilder stringBuilder;
 
 String name;
 
-int nameIndex = 1;
+int nameIndex;
 
 name and nameIndex their purpose is only so that we can identify different ConcreteMember(and we will use nameIndex when
 no names have been entered for the ConcreteMember)
 
-the ConcreteMember follow after the 
+the ConcreteMember follow after the
+##central methods
+   
+### update
+Replace the old UndoableStringBuilder with current UndoableStringBuilder.
+   
+### resetUndoableString
+   so that we can disconnect completly we must rest the UndoableStringBuilder by create a new ndoableStringBuilder
+   
+   
+##sender
+   the "sender" interface describes the update sender
+   
+##member
+   the "Member" interface describes the update recipient
 
 
 
